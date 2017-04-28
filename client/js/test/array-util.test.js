@@ -1,6 +1,5 @@
-const arrayUtil  = require('../array-util');
-const getRange = arrayUtil.getRange;
-const getLetterRange = arrayUtil.getLetterRange;
+const { getRange,
+		getLetterRange }  = require('../array-util');
 
 describe('array-util', () => {
 

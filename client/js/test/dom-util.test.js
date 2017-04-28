@@ -1,8 +1,7 @@
-const domUtil = require('../dom-util');
-const createTR = domUtil.createTR;
-const createTH = domUtil.createTH;
-const createTD = domUtil.createTD;
-const removeChildren = domUtil.removeChildren;
+const { createTR,
+		createTH,
+		createTD,
+		removeChildren } = require('../dom-util');
 
 describe('dom-util', () => {
 

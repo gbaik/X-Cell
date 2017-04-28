@@ -79,13 +79,11 @@ module.exports = TableModel;
 },{}],5:[function(require,module,exports){
 "use strict"
 
-const arrayUtil = require('./array-util');
-const domUtil = require('./dom-util');
-const getLetterRange = arrayUtil.getLetterRange;
-const createTR = domUtil.createTR;
-const createTH = domUtil.createTH;
-const createTD = domUtil.createTD;
-const removeChildren = domUtil.removeChildren;
+const { getLetterRange } = require('./array-util');
+const { createTR,
+		createTH,
+		createTD,
+		removeChildren } = require('./dom-util');
 
 
 class TableView {
@@ -135,7 +133,7 @@ class TableView {
 
 	isCurrentCell(col, row){
 		return this.currentCellLocation.col === col &&
-			   this.currentCellLocation.row === row
+			   this.currentCellLocation.row === row;
 	}
 
 	renderTableBody() {
