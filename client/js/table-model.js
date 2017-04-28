@@ -1,6 +1,7 @@
 "use strict"
 
 class TableModel {
+
 	constructor(numCols,numRows) {
 		this.numCols = numCols;
 		this.numRows = numRows;
