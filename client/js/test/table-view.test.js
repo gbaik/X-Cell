@@ -27,6 +27,19 @@ describe('table-view', () => {
 			expect(ths.length).toBe(numCols);
 
 		});
+
+		it('has to add up', () => {
+			//set up the inital state
+			const model = new TableModel(3, 3);
+			const view = new TableView(model);
+			view.init();
+
+			//inspect the user action
+			let trs = document.querySelectorAll('TFOOT TR');
+			let td = trs[0].cells[0];
+			expect(td.textContent).toBe('');
+
+		})
 	});
 
 	describe('formula bar', () => {

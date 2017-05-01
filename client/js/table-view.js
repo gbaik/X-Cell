@@ -69,7 +69,7 @@ class TableView {
 				const td = createTD(value);
 
 				if (this.isCurrentCell(col, row)) {
-					td.className = 'current-cell';
+					td.setAttribute('class', 'current-cell');
 				}
 
 				tr.appendChild(td);
@@ -80,15 +80,43 @@ class TableView {
 		this.sheetBodyEl.appendChild(fragment);
 	}
 
+	renderTableFooter() {
+		const fragment = document.createDocumentFragment();
+		let total = {};
+
+		for (let col = 0; col < this.model.numCols; col++) {
+			for (let row = 0; row < this.model.numRows; row++) {
+				const position = {col : col , row: row};
+				const value = this.model.getValue(position);
+				if(value && !isNaN(value)){
+					const toNum = parseFloat(value, 10);
+					if (total.hasOwnProperty(col)) {
+						total[col] += toNum;
+					} else {
+						total[col] = toNum;
+					}
+				}
+			}
+			const td = createTD(total[col]);
+			td.setAttribute('class', 'last-cell');
+			fragment.appendChild(td);
+		}
+
+		removeChildren(this.sheetFootEl);
+		this.sheetFootEl.appendChild(fragment);
+	}
+
 	attachEventHandlers() {
 		this.sheetBodyEl.addEventListener('click', this.handleSheetClick.bind(this));
 		this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this));
 	}
 
 	handleFormulaBarChange(evt) {
-		const value = this.formulaBarEl.value;
+		const value = (this.formulaBarEl.value);
+
 		this.model.setValue(this.currentCellLocation, value);
 		this.renderTableBody();
+		this.renderTableFooter();
 	}
 
 	handleSheetClick(evt) {
@@ -100,21 +128,6 @@ class TableView {
 		this.renderFormulaBar();
 	}
 
-
-	renderTableFooter() {
-		const fragment = document.createDocumentFragment();
-		for (let col = 0; col < this.model.numCols; col++) {
-			const td = createTD();
-			for (let row = 0; row < this.model.numRows; row++) {
-				const position = {col : col , row: row};
-				const value = this.model.getValue(position);
-				const td = createTD(value);
-			}
-			fragment.appendChild(td);
-		}
-		removeChildren(this.sheetFootEl);
-		this.sheetFootEl.appendChild(fragment);
-	}
 }
 
 module.exports = TableView;

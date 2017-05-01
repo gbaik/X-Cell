@@ -11,5 +11,9 @@ td {
 }
 
 .current-cell {
-	background-color: pink;
+	background-color: #F8ABC5;
+}
+
+.last-cell {
+	background-color: #35BD01;
 }
