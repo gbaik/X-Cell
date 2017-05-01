@@ -101,6 +101,7 @@ class TableView {
 	initDomReferences() {
 		this.headerRowEl = document.querySelector('THEAD TR');
 		this.sheetBodyEl = document.querySelector('TBODY');
+		this.sheetFootEl = document.querySelector('TFOOT TR');
 		this.formulaBarEl = document.querySelector('#formula-bar');
 	}
 
@@ -122,6 +123,7 @@ class TableView {
 	renderTable() {
 		this.renderTableHeader();
 		this.renderTableBody();
+		this.renderTableFooter();
 	}
 
 	renderTableHeader() {
@@ -175,6 +177,22 @@ class TableView {
 		this.currentCellLocation = { col : col, row: row};
 		this.renderTableBody();
 		this.renderFormulaBar();
+	}
+
+
+	renderTableFooter() {
+		const fragment = document.createDocumentFragment();
+		for (let col = 0; col < this.model.numCols; col++) {
+			const td = createTD();
+			for (let row = 0; row < this.model.numRows; row++) {
+				const position = {col : col , row: row};
+				const value = this.model.getValue(position);
+				const td = createTD(value);
+			}
+			fragment.appendChild(td);
+		}
+		removeChildren(this.sheetFootEl);
+		this.sheetFootEl.appendChild(fragment);
 	}
 }
 

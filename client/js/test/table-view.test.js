@@ -13,6 +13,22 @@ describe('table-view', () => {
 		document.documentElement.innerHTML = html;
 	});
 
+	describe('table footer', () => {
+		it('it has right size', () => {
+			//set up the inital state
+			const numCols = 1;
+			const numRows = 10;
+			const model = new TableModel(numCols, numRows);
+			const view = new TableView(model);
+			view.init();
+
+			//inspect the inital state
+			let ths = document.querySelectorAll('TFOOT TR');
+			expect(ths.length).toBe(numCols);
+
+		});
+	});
+
 	describe('formula bar', () => {
 		it('makes changes TO The value of the current cell', () => {
 			//set up the initial state
