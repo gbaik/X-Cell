@@ -6,7 +6,7 @@ const TableView = require('../table-view');
 
 describe('table-view', () => {
 
-	beforeEach(() => {
+  beforeEach(() => {
 		//load HTML skelton from disk and parse into the DOM
 		const fixturePath = './client/js/test/fixtures/sheet-container.html';
 		const html = fs.readFileSync(fixturePath, 'utf8');
@@ -14,7 +14,7 @@ describe('table-view', () => {
 	});
 
 	describe('table footer', () => {
-		it('it has right size', () => {
+		it('it has correct column size', () => {
 			//set up the inital state
 			const numCols = 1;
 			const numRows = 10;
@@ -28,7 +28,7 @@ describe('table-view', () => {
 
 		});
 
-		it('has to add up', () => {
+		it('column total value adds up', () => {
 			//set up the inital state
 			const model = new TableModel(3, 3);
 			const view = new TableView(model);
