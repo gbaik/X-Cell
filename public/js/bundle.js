@@ -101,7 +101,7 @@ class TableView {
 	initDomReferences() {
 		this.headerRowEl = document.querySelector('THEAD TR');
 		this.sheetBodyEl = document.querySelector('TBODY');
-		this.sheetFootEl = document.querySelector('TFOOT TR');
+		this.footerRowEl = document.querySelector('TFOOT TR');
 		this.formulaBarEl = document.querySelector('#formula-bar');
 	}
 
@@ -161,28 +161,28 @@ class TableView {
 
 	renderTableFooter() {
 		const fragment = document.createDocumentFragment();
-		let total = {};
+		let columnTotal = {};
 
 		for (let col = 0; col < this.model.numCols; col++) {
 			for (let row = 0; row < this.model.numRows; row++) {
 				const position = {col : col , row: row};
-				const value = this.model.getValue(position);
+				let value = this.model.getValue(position);
 				if(value && !isNaN(value)){
-					const toNum = parseFloat(value, 10);
-					if (total.hasOwnProperty(col)) {
-						total[col] += toNum;
+					value = parseFloat(value, 10);
+					if (columnTotal.hasOwnProperty(col)) {
+						columnTotal[col] += value;
 					} else {
-						total[col] = toNum;
+						columnTotal[col] = value;
 					}
 				}
 			}
-			const td = createTD(total[col]);
-			td.setAttribute('class', 'last-cell');
+			const td = createTD(columnTotal[col]);
+			td.setAttribute('class', 'last-column-cell');
 			fragment.appendChild(td);
 		}
 
-		removeChildren(this.sheetFootEl);
-		this.sheetFootEl.appendChild(fragment);
+		removeChildren(this.footerRowEl);
+		this.footerRowEl.appendChild(fragment);
 	}
 
 	attachEventHandlers() {
